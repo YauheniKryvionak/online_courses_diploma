@@ -39,3 +39,15 @@ class OwnerCourseEditMixin(OwnerCourseMixin, OwnerEditMixin):
 
 class ManageCourseListView(OwnerCourseMixin, ListView):
     template_name = 'courses/manage/course/list.html'
+
+
+class CourseCreateView(OwnerCourseEditMixin, CreateView):
+    pass
+
+
+class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
+    pass
+
+
+class CourseDeleteView(OwnerCourseMixin, DeleteView):
+    template_name = 'courses/manage/course/delete.html'
