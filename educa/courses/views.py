@@ -13,3 +13,9 @@ class ManageCourseListView(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         return qs.filter(owner=self.request.user)
+
+
+class OwnerMixin:
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(owner=self.request.user)
