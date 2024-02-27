@@ -4,8 +4,11 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.forms.models import modelform_factory
+from django.apps import apps
 from .forms import ModuleFormSet
 from .models import Course
+from .models import Module, Content
 
 
 # Create your views here.
@@ -85,3 +88,11 @@ class CourseModuleUpdateView(TemplateResponseMixin, View):
             return redirect('manage_course_list')
         return self.render_to_response({'course': self.course,
                                         'formset': formset})
+
+
+class ContentCreateUpdateView(TemplateResponseMixin, View):
+    module = None
+    model = None
+    obj = None
+    template_name = 'courses/manage/content/form.html'
+
