@@ -119,3 +119,8 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                                          id=id,
                                          owner=request.user)
         return super().dispatch(request, module_id, module_name, id)
+
+    def get(self, request, module_id, model_name, id=None):
+        form = self.get_form(self.model, instance=self.obj)
+        return self.render_to_response({'form': form,
+                                        'object': self.obj})
