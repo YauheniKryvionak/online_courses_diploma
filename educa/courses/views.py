@@ -109,7 +109,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
                                                  'updated'])
         return Form(*args, **kwargs)
 
-    def dispatch(self, request, module_id, module_name, id=None):
+    def dispatch(self, request, module_id, model_name, id=None):
         self.module = get_object_or_404(Module,
                                         id=module_id,
                                         course__owner=request.user)
@@ -118,7 +118,7 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
             self.obj = get_object_or_404(self.model,
                                          id=id,
                                          owner=request.user)
-        return super().dispatch(request, module_id, module_name, id)
+        return super().dispatch(request, module_id, model_name, id)
 
     def get(self, request, module_id, model_name, id=None):
         form = self.get_form(self.model, instance=self.obj)
