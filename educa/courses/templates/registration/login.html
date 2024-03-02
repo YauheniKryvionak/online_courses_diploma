@@ -3,17 +3,21 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
+  <!-- Блок контента содержит заголовок h1 "Log-in" -->
   <h1>Log-in</h1>
   <div class="module">
+    <!-- Блок проверяет наличие ошибок в форме и выводит соответствующее сообщение -->
     {% if form.errors %}
       <p>Your username and password didn't match. Please try again.</p>
     {% else %}
       <p>Please, use the following form to log-in:</p>
     {% endif %}
+    <!-- Блок содержит форму входа с полями для ввода логина и пароля, а также кнопкой отправки -->
     <div class="login-form">
       <form action="{% url 'login' %}" method="post">
         {{ form.as_p }}
         {% csrf_token %}
+        <!-- Скрытое поле для перенаправления после входа -->
         <input type="hidden" name="next" value="{{ next }}" />
         <p><input type="submit" value="Log-in"></p>
       </form>
