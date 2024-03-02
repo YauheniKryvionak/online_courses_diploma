@@ -3,8 +3,10 @@
 {% block title %}Logged out{% endblock %}
 
 {% block content %}
+  <!-- Блок контента содержит заголовок h1 "Logged out" -->
   <h1>Logged out</h1>
   <div class="module">
+    <!-- Блок содержит абзац с информацией о выходе из системы и ссылку на страницу входа -->
     <p>
       You have been successfully logged out.
       You can <a href="{% url 'login' %}">log-in again</a>.
