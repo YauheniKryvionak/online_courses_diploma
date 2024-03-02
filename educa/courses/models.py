@@ -6,7 +6,7 @@ from .fields import OrderField
 
 
 # Create your models here.
-
+# Модель Subject представляет предмет, к которому относятся курсы
 class Subject(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -18,6 +18,8 @@ class Subject(models.Model):
         return self.title
 
 
+# Модель Course представляет курс, который связан с Subject и имеет владельца, название, уникальный идентификатор для
+# URL, краткое описание и дату создания
 class Course(models.Model):
     owner = models.ForeignKey(User,
                               related_name='courses_created',
@@ -37,6 +39,8 @@ class Course(models.Model):
         return self.title
 
 
+# Модель Module представляет модуль в курсе, который связан с Course и содержит название, описание и порядковый номер,
+# который определяется пользовательским полем OrderField
 class Module(models.Model):
     course = models.ForeignKey(Course,
                                related_name='modules',
@@ -52,6 +56,7 @@ class Module(models.Model):
         return f'{self.order}. {self.title}'
 
 
+# Модель Content представляет универсальную связь с любым типом контента, который может быть связан с Module
 class Content(models.Model):
     module = models.ForeignKey(Module,
                                related_name='contents',
@@ -72,6 +77,7 @@ class Content(models.Model):
         ordering = ['order']
 
 
+# Абстрактная модель ItemBase используется как базовый класс для конкретных типов контента
 class ItemBase(models.Model):
     owner = models.ForeignKey(User,
                               related_name='%(class)s_related',
@@ -87,6 +93,7 @@ class ItemBase(models.Model):
         return self.title
 
 
+# Конкретные типы контента, наследующие от ItemBase и добавляющие свои уникальные поля
 class Text(ItemBase):
     content = models.TextField()
 
