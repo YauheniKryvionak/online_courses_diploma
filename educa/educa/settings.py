@@ -15,16 +15,20 @@ import os
 from environ import Env
 import dotenv
 
+# Загружаем переменные окружения из файла .env
 dotenv.load_dotenv()
 
+# Создаем объект Env, который используется для получения значений из переменных окружения
 env = Env(
     DEBUG=(bool, False),
     POSTGRES=(bool, True)
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Определяем базовую директорию проекта
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Загружаем переменные окружения из файла .env в текущей директории
 Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
@@ -34,13 +38,14 @@ Env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# Указываем, что приложение должно работать в режиме отладки
 DEBUG = env('DEBUG')
-
+# Указываем разрешенные хосты
 ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# Указываем установленные приложения
 INSTALLED_APPS = [
     'courses.apps.CoursesConfig',  # local
     'django.contrib.admin',
@@ -60,9 +65,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+# Указываем корневой URL-конфигуратор
 ROOT_URLCONF = 'educa.urls'
-
+# Указываем шаблоны
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -78,13 +83,13 @@ TEMPLATES = [
         },
     },
 ]
-
+# Указываем WSGI-приложение
 WSGI_APPLICATION = 'educa.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+# Указываем настройки базы данных
 if env("POSTGRES"):
     DATABASES = {
         'default': {
@@ -107,7 +112,7 @@ else:
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
+# Указываем проверки паролей
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -127,6 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
+# Указываем язык и временную зону
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'W-SU'
@@ -139,6 +145,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# Указываем URL для статических файлов
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -146,12 +153,14 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email server configuration
+# Указываем настройки электронной почты
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 
+# Указываем URL для медиа-файлов
 MEDIA_URL = 'media/'
+# Указываем директорию для медиа-файлов
 MEDIA_ROOT = BASE_DIR / 'media'
